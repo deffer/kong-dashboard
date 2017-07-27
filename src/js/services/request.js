@@ -28,9 +28,13 @@ angular.module('app').factory('Request', ['$http', function ($http) {
     options.headers = options.headers || {};
     options.timeout = options.timeout || 5000;
     options.headers[kongNodeURLHeader] = options.kong_url;
-    options.url = './proxy' + options.endpoint;
+    if (options.useproxy==true)
+      options.url = './proxy' + options.endpoint;
+    else{
+      options.url = options.kong_url + options.endpoint;
+    }
     options.timeout = 30000;
   }
-
+  
   return request;
 }]);

@@ -2,12 +2,13 @@
  * This factory handles CRUD requests to the backend API.
  */
 angular.module('app')
-  .factory('Kong', ['$http', '$q', '$cookies', 'Request', 'Alert', function ($http, $q, $cookies, Request, Alert) {
-    var config = {
-      url : $cookies.getObject('config.url'),
-      auth : { type : "no_auth" },
-      gelato : $cookies.getObject('config.gelato')
-    };
+    .factory('Kong', ['$http', '$q', '$cookies', 'Request', 'Alert', function ($http, $q, $cookies, Request, Alert) {
+        var config = {
+            url : $cookies.getObject('config.url'),
+            auth : { type : "no_auth" },
+            gelato : $cookies.getObject('config.gelato'),
+            useproxy: $cookies.getObject('config.useproxy')
+        };
 
     var factory = {
       config: config,
@@ -43,6 +44,7 @@ angular.module('app')
           Request({
             kong_url: url,
             endpoint: '/',
+            useproxy: config.useproxy,
             method: 'GET'
           }).then(function (response) {
             if (
@@ -69,12 +71,14 @@ angular.module('app')
         }
         return deferred.promise;
       },
-
       setConfig: function (config) {
         var deferred = $q.defer();
         factory.checkConfig(config).then(function () {
           factory.config = config;
           $cookies.putObject('config.url', factory.config.url, {
+            expires: new Date(new Date().getTime() + 1000 * 24 * 3600 * 60) // remember 60 days
+          });
+          $cookies.putObject('config.useproxy', factory.config.useproxy, {
             expires: new Date(new Date().getTime() + 1000 * 24 * 3600 * 60) // remember 60 days
           });
           deferred.resolve();
@@ -95,6 +99,7 @@ angular.module('app')
           Request({
             kong_url: factory.config.url,
             endpoint: endpoint,
+            useproxy: factory.config.useproxy,
             method: method
           }).then(function (response) {
             deferred.resolve(response.data);
@@ -115,6 +120,7 @@ angular.module('app')
           Request({
             kong_url: factory.config.url,
             endpoint: endpoint,
+            useproxy: factory.config.useproxy,
             method: method,
             data: data,
           }).then(function (response) {
