@@ -48,7 +48,7 @@
                 </ul>
             </td>
             <td ng-if="api.uris.length == 1">
-                {{ api.uris[0] }}
+                <a href="/service{{ api.uris[0] }}" target="_blank">{{ api.uris[0] }}<a>
             </td>
             <td ng-if="api.uris.length != 1">
                 <ul class="browser-default">
@@ -67,9 +67,11 @@
                     </li>
                 </ul>
             </td>
-            <td>
+            <!--td>
                 <a href="{{ api.upstream_url }}" target="_blank">{{ api.upstream_url }}</a>
-            </td>
+            </td-->
+            <td ng-attr-title="{{api.upstream_url}}">{{api.upstream_url | limitTo:54}}</td>
+
             <td>{{api.created_at | date}}</td>
             <td class="right">
                 <a class="btn-floating waves-effect waves-light" href="#/apis/{{api.id}}">

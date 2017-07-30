@@ -1,7 +1,7 @@
 var app = angular.module('app', ['ngRoute', 'ngCookies', 'ngAnimate', 'ngSanitize', 'infinite-scroll'])
   .config(['$routeProvider', function ($routeProvider) {
 
-    var appStarted = false;
+    var appStarted = true;
 
     var isAppReady = ['Kong', '$location', function(Kong, $location) {
       if (appStarted) {
@@ -150,7 +150,10 @@ var app = angular.module('app', ['ngRoute', 'ngCookies', 'ngAnimate', 'ngSanitiz
   }])
   .run(['$rootScope', 'Kong', '$location', function($rootScope, Kong, $location) {
     $rootScope.initialized = false;
-    Kong.checkConfig(Kong.config).then(function() {
+    var config = angular.copy(Kong.config);    
+    config.url = 'endpoints';
+	config.useproxy=false;
+    Kong.setConfig(config).then(function() {
       $rootScope.app = Kong;
       $rootScope.initialized = true;
     }, function() {
