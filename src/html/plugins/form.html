@@ -20,7 +20,7 @@
                     <label class="active">Which API(s) should this plugin apply to?</label>
                     <select materialize-select
                             ng-model="plugin.api_id"
-                            ng-options="api.id as api.name for api in apis.data"
+                            ng-options="api.id as api.name for api in apis.data | orderBy:'name'"
                             ng-disabled="{{mode==='edit'}}"
                             >
                         <option value="" ng-disabled="api_id_required" ng-selected="{{mode==='create'}}">{{ api_id_required ? "Choose API" : "All" }}</option>
