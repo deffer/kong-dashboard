@@ -1,0 +1,1 @@
+kong-dashboard start --kong-url https://api.sandbox.auckland.ac.nz/service/kong-loopback-basic --kong-username authserver --kong-password authserver

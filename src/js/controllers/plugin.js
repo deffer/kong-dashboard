@@ -16,9 +16,12 @@ angular.module('app').controller("PluginController", ["$scope", "Kong", "$locati
       Object.keys(plugins.enabled_plugins); // Happens with kong 0.9.0. See issue #52
 
     var apisOptions = {'All': null};
+	console.log("Sorting apis");
+	apis.data.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} ); 
     apis.data.forEach(function(api) {
         apisOptions[api.name] = api.id
-    });
+    });	
+	
     var consumerOptions = {'All': null};
     consumers.data.forEach(function(consumer) {
         consumerOptions[consumer.username] = consumer.id

@@ -66,7 +66,7 @@
             return Kong.get('/plugins/enabled');
           }],
           apis: ['Kong', '$location', function(Kong) {
-            return Kong.get('/apis');
+            return Kong.get('/apis?size=1000');
           }],
           consumers: ['Kong', '$location', function(Kong) {
             return Kong.get('/consumers?size=1000');
@@ -85,10 +85,10 @@
             return Kong.get('/plugins/enabled');
           }],
           apis: ['Kong', '$location', function(Kong) {
-            return Kong.get('/apis');
+            return Kong.get('/apis?size=1000');
           }],
           consumers: ['Kong', '$location', function(Kong) {
-            return Kong.get('/consumers');
+            return Kong.get('/consumers?size=1000');
           }]
         }
       })

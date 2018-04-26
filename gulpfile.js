@@ -41,7 +41,9 @@ gulp.task('build_js', function () {
 gulp.task('build_html', function() {
   gulp.src([paths.html_src + '/index.html'])
     .pipe(gulp.dest(paths.dist));
-  gulp.src([paths.html_src + '/**/*'])
+  gulp.src([paths.root + '/favicon.ico'])
+    .pipe(gulp.dest(paths.dist));
+	gulp.src([paths.html_src + '/**/*'])
     .pipe(gulp.dest(paths.dist + '/html'));
   gulp.src([paths.root + '/components/**/*.html'])
     .pipe(gulp.dest(paths.dist + '/components'));
